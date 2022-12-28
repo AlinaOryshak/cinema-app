@@ -1,6 +1,7 @@
 package cinema.config;
 
-import static cinema.model.Role.RoleName;
+import static cinema.model.Role.RoleName.ADMIN;
+import static cinema.model.Role.RoleName.USER;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -31,16 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/register").anonymous()
                 .antMatchers(HttpMethod.GET,"/cinema-halls/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/cinema-halls/**").hasRole(RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/cinema-halls/**").hasRole(ADMIN.name())
                 .antMatchers(HttpMethod.GET,"/movies/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/movies/**").hasRole(RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/movies/**").hasRole(ADMIN.name())
                 .antMatchers(HttpMethod.GET,"/movie-sessions/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/movie-sessions/**").hasRole(RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.PUT,"/movie-sessions/**").hasRole(RoleName.ADMIN.name())
-                .antMatchers(HttpMethod.DELETE,"/movie-sessions/**").hasRole(RoleName.ADMIN.name())
-                .antMatchers("/orders/**").hasRole(RoleName.USER.name())
-                .antMatchers("/shopping-carts/**").hasRole(RoleName.USER.name())
-                .antMatchers("/users/**").hasRole(RoleName.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/movie-sessions/**").hasRole(ADMIN.name())
+                .antMatchers(HttpMethod.PUT,"/movie-sessions/**").hasRole(ADMIN.name())
+                .antMatchers(HttpMethod.DELETE,"/movie-sessions/**").hasRole(ADMIN.name())
+                .antMatchers("/orders/**").hasRole(USER.name())
+                .antMatchers("/shopping-carts/**").hasRole(USER.name())
+                .antMatchers("/users/**").hasRole(ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
